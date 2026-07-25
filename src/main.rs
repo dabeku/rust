@@ -1,4 +1,6 @@
 use std::f64::consts::PI;
+use std::fs::File;
+use std::io::{self, Write};
 
 fn factorial(n: u64) -> u64 {
     (1..=n).product()
@@ -26,7 +28,7 @@ fn is_prime(n: u64) -> bool {
     true
 }
 
-fn main() {
+fn main() -> io::Result<()> {
     println!("==================================");
     println!("RUST MATHEMATICAL CALCULATIONS REPORT");
     println!("==================================\n");
@@ -144,4 +146,14 @@ fn main() {
     println!("\n==============================================");
     println!("REPORT COMPLETE");
     println!("==============================================");
+    
+    // Create (or overwrite) the file
+    let mut file = File::create("output.txt")?;
+
+    // Write some text
+    writeln!(file, "This is a test.")?;
+    writeln!(file, "Rust successfully wrote to this file!")?;
+    writeln!(file, "Line 3: Hello, World!")?;
+    
+    Ok(()) 
 }
